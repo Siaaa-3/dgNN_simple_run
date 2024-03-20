@@ -1,0 +1,1326 @@
+filename:./matrix/m3w_nnz20w/csr_m3w_nnz20w.mtx
+The CSR matrix does not have more than 1024 rows with non-zero elements.
+
+Read CSR matrix success.
+m=36057 nnz=227628
+max_nnzPerRow=33
+【0】 after read csr
+【0】 after read dense mtx
+【0】 after copy attns and in_feat
+【0】 after copy row_ptr and col_ind
+max_nnzPerRow=33
+NNZ_PER_BLOCK=64
+nblocks=3558
+【0b】 into compute row_limits kernel
+【0b】 end of compute row_limits kernel
+【0】 after compute row limits, should into 【1】
+========= CUDA-MEMCHECK
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (31,0,0) in block (36055,0,0)
+=========     Address 0x7f4a95cd35ec is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (30,0,0) in block (36055,0,0)
+=========     Address 0x7f4a95cd35e8 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (29,0,0) in block (36055,0,0)
+=========     Address 0x7f4a95cd35e4 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (28,0,0) in block (36055,0,0)
+=========     Address 0x7f4a95cd35e0 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (27,0,0) in block (36055,0,0)
+=========     Address 0x7f4a95cd35dc is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (26,0,0) in block (36055,0,0)
+=========     Address 0x7f4a95cd35d8 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (25,0,0) in block (36055,0,0)
+=========     Address 0x7f4a95cd35d4 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (24,0,0) in block (36055,0,0)
+=========     Address 0x7f4a95cd35d0 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (23,0,0) in block (36055,0,0)
+=========     Address 0x7f4a95cd35cc is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (22,0,0) in block (36055,0,0)
+=========     Address 0x7f4a95cd35c8 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (21,0,0) in block (36055,0,0)
+=========     Address 0x7f4a95cd35c4 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (20,0,0) in block (36055,0,0)
+=========     Address 0x7f4a95cd35c0 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (19,0,0) in block (36055,0,0)
+=========     Address 0x7f4a95cd35bc is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (18,0,0) in block (36055,0,0)
+=========     Address 0x7f4a95cd35b8 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (17,0,0) in block (36055,0,0)
+=========     Address 0x7f4a95cd35b4 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (16,0,0) in block (36055,0,0)
+=========     Address 0x7f4a95cd35b0 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (15,0,0) in block (36055,0,0)
+=========     Address 0x7f4a95cd35ac is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (14,0,0) in block (36055,0,0)
+=========     Address 0x7f4a95cd35a8 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (13,0,0) in block (36055,0,0)
+=========     Address 0x7f4a95cd35a4 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (12,0,0) in block (36055,0,0)
+=========     Address 0x7f4a95cd35a0 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (11,0,0) in block (36055,0,0)
+=========     Address 0x7f4a95cd359c is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (10,0,0) in block (36055,0,0)
+=========     Address 0x7f4a95cd3598 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (9,0,0) in block (36055,0,0)
+=========     Address 0x7f4a95cd3594 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (8,0,0) in block (36055,0,0)
+=========     Address 0x7f4a95cd3590 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (31,0,0) in block (36054,0,0)
+=========     Address 0x7f4a95cd35cc is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (30,0,0) in block (36054,0,0)
+=========     Address 0x7f4a95cd35c8 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (29,0,0) in block (36054,0,0)
+=========     Address 0x7f4a95cd35c4 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (28,0,0) in block (36054,0,0)
+=========     Address 0x7f4a95cd35c0 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (27,0,0) in block (36054,0,0)
+=========     Address 0x7f4a95cd35bc is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (26,0,0) in block (36054,0,0)
+=========     Address 0x7f4a95cd35b8 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (25,0,0) in block (36054,0,0)
+=========     Address 0x7f4a95cd35b4 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (24,0,0) in block (36054,0,0)
+=========     Address 0x7f4a95cd35b0 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (23,0,0) in block (36054,0,0)
+=========     Address 0x7f4a95cd35ac is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (22,0,0) in block (36054,0,0)
+=========     Address 0x7f4a95cd35a8 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (21,0,0) in block (36054,0,0)
+=========     Address 0x7f4a95cd35a4 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (20,0,0) in block (36054,0,0)
+=========     Address 0x7f4a95cd35a0 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (19,0,0) in block (36054,0,0)
+=========     Address 0x7f4a95cd359c is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (18,0,0) in block (36054,0,0)
+=========     Address 0x7f4a95cd3598 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (17,0,0) in block (36054,0,0)
+=========     Address 0x7f4a95cd3594 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (16,0,0) in block (36054,0,0)
+=========     Address 0x7f4a95cd3590 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (31,0,0) in block (36053,0,0)
+=========     Address 0x7f4a95cd35ac is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (30,0,0) in block (36053,0,0)
+=========     Address 0x7f4a95cd35a8 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (29,0,0) in block (36053,0,0)
+=========     Address 0x7f4a95cd35a4 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (28,0,0) in block (36053,0,0)
+=========     Address 0x7f4a95cd35a0 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (27,0,0) in block (36053,0,0)
+=========     Address 0x7f4a95cd359c is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (26,0,0) in block (36053,0,0)
+=========     Address 0x7f4a95cd3598 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (25,0,0) in block (36053,0,0)
+=========     Address 0x7f4a95cd3594 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (24,0,0) in block (36053,0,0)
+=========     Address 0x7f4a95cd3590 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (31,0,0) in block (36052,0,0)
+=========     Address 0x7f4a95cd359c is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (30,0,0) in block (36052,0,0)
+=========     Address 0x7f4a95cd3598 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (29,0,0) in block (36052,0,0)
+=========     Address 0x7f4a95cd3594 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (28,0,0) in block (36052,0,0)
+=========     Address 0x7f4a95cd3590 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (31,0,0) in block (36056,0,0)
+=========     Address 0x7f4a95cd35fc is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (30,0,0) in block (36056,0,0)
+=========     Address 0x7f4a95cd35f8 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (29,0,0) in block (36056,0,0)
+=========     Address 0x7f4a95cd35f4 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (28,0,0) in block (36056,0,0)
+=========     Address 0x7f4a95cd35f0 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (27,0,0) in block (36056,0,0)
+=========     Address 0x7f4a95cd35ec is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (26,0,0) in block (36056,0,0)
+=========     Address 0x7f4a95cd35e8 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (25,0,0) in block (36056,0,0)
+=========     Address 0x7f4a95cd35e4 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (24,0,0) in block (36056,0,0)
+=========     Address 0x7f4a95cd35e0 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (23,0,0) in block (36056,0,0)
+=========     Address 0x7f4a95cd35dc is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (22,0,0) in block (36056,0,0)
+=========     Address 0x7f4a95cd35d8 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (21,0,0) in block (36056,0,0)
+=========     Address 0x7f4a95cd35d4 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (20,0,0) in block (36056,0,0)
+=========     Address 0x7f4a95cd35d0 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (19,0,0) in block (36056,0,0)
+=========     Address 0x7f4a95cd35cc is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (18,0,0) in block (36056,0,0)
+=========     Address 0x7f4a95cd35c8 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (17,0,0) in block (36056,0,0)
+=========     Address 0x7f4a95cd35c4 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (16,0,0) in block (36056,0,0)
+=========     Address 0x7f4a95cd35c0 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (15,0,0) in block (36056,0,0)
+=========     Address 0x7f4a95cd35bc is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (14,0,0) in block (36056,0,0)
+=========     Address 0x7f4a95cd35b8 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (13,0,0) in block (36056,0,0)
+=========     Address 0x7f4a95cd35b4 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (12,0,0) in block (36056,0,0)
+=========     Address 0x7f4a95cd35b0 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (11,0,0) in block (36056,0,0)
+=========     Address 0x7f4a95cd35ac is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (10,0,0) in block (36056,0,0)
+=========     Address 0x7f4a95cd35a8 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (9,0,0) in block (36056,0,0)
+=========     Address 0x7f4a95cd35a4 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (8,0,0) in block (36056,0,0)
+=========     Address 0x7f4a95cd35a0 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (7,0,0) in block (36056,0,0)
+=========     Address 0x7f4a95cd359c is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (6,0,0) in block (36056,0,0)
+=========     Address 0x7f4a95cd3598 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (5,0,0) in block (36056,0,0)
+=========     Address 0x7f4a95cd3594 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Invalid __global__ read of size 4
+=========     at 0x00004430 in /home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *)
+=========     by thread (4,0,0) in block (36056,0,0)
+=========     Address 0x7f4a95cd3590 is out of bounds
+=========     Device Frame:/home/lisan/programs/dgNN_simple_run/fused_gatconv_kernel.cu:110:fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*, float*, float*, float*, __int64, int const *) (fused_forward_kernel(int, int, int, int, float, float const *, float const *, int const *, int const *, float const *, float, float*【0】 out of fused_forward_kernel_test()
+
+Kernel execution time: 0.000000 milliseconds
+CUDA error: unspecified launch failure
+, float*, float*, float*, __int64, int const *) : 0x4430)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x2702ca]
+=========     Host Frame:./test [0x13feb]
+=========     Host Frame:./test [0x67710]
+=========     Host Frame:./test [0xc988]
+=========     Host Frame:./test [0xbeb2]
+=========     Host Frame:./test [0xbf49]
+=========     Host Frame:./test [0xb455]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Program hit cudaErrorLaunchFailure (error 719) due to "unspecified launch failure" on CUDA API call to cudaEventSynchronize.
+=========     Saved host backtrace up to driver entry point at error
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x37cf83]
+=========     Host Frame:./test [0x4da78]
+=========     Host Frame:./test [0xb47c]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Program hit cudaErrorLaunchFailure (error 719) due to "unspecified launch failure" on CUDA API call to cudaEventElapsedTime.
+=========     Saved host backtrace up to driver entry point at error
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x37cf83]
+=========     Host Frame:./test [0x4dd90]
+=========     Host Frame:./test [0xb4b4]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= Program hit cudaErrorLaunchFailure (error 719) due to "unspecified launch failure" on CUDA API call to cudaGetLastError.
+=========     Saved host backtrace up to driver entry point at error
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 [0x37cf83]
+=========     Host Frame:./test [0x495e4]
+=========     Host Frame:./test [0xb4d6]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21c87]
+=========     Host Frame:./test [0x919a]
+=========
+========= ERROR SUMMARY: 83 errors
