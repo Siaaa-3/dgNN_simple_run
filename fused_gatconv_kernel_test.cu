@@ -25,8 +25,8 @@ __global__ void fused_forward_kernel_test(int m, int nnz, int h, int f,
   const int* row_limits, int& nlimits,
   const int nthreads, const int m_per_block) {
 
-  if(DEBUG_MODE==1) if(blockIdx.x==0&&threadIdx.x==0) printf("【1】code into fused_forward_kernel_test\n");
-
+  if(DEBUG_MODE>=1) if(blockIdx.x==0&&threadIdx.x==0) printf("【1】code into fused_forward_kernel_test\n");
+  
   int tid = threadIdx.x; 
   int hid = blockIdx.y; 
   
@@ -41,6 +41,8 @@ __global__ void fused_forward_kernel_test(int m, int nnz, int h, int f,
   int right = row_limits[blockIdx.x+1];
   int lb = row_ptr[left]; //第几个元素
   int hb = row_ptr[right];
+
+  // if(blockIdx.x==5 && tid==0) printf("left=%d(行), right=%d(行), lb=%d(nnz), rb=%d(nnz)\n", left, right, lb, hb); 
 
   int ptr = lb + threadIdx.x; //当前block内的线程处理全局第几个元素
 
@@ -62,15 +64,17 @@ __global__ void fused_forward_kernel_test(int m, int nnz, int h, int f,
   // if(blockIdx.x<4 && threadIdx.x > 57) printf("bloxk.x=%d  thread.x = %d: rid=%d\n", blockIdx.x, threadIdx.x, rid);
   float attn_row_val = 0;
   if(ptr < hb) attn_row_val = attn_row[rid * h + hid]; 
+  if(DEBUG_MODE>=0) if(rid==testRid) {printf("\ntestRid=%d, 查看过程中间各结果\n",testRid );}
+  if(DEBUG_MODE>=0) if(rid==testRid) printf("attn_row_val=%f\n", attn_row_val);
 
-  if(DEBUG_MODE==1) if(blockIdx.x==0&&threadIdx.x==0) printf("【1】 after compute rid\n");
+  if(DEBUG_MODE>=1) if(blockIdx.x==0&&threadIdx.x==0) printf("【1】 after compute rid\n");
 
   extern __shared__ int sh[];
   int* shared_row = sh;
-  float* weightMax = (float*)&sh[nthreads]; // nthreads;
-  float* expAll = (float*)&sh[nthreads + m_per_block]; // nthreads + m_per_block
+  float* weightMax = (float*)&sh[nthreads]; 
+  float* expAll = (float*)&sh[nthreads + m_per_block]; 
 
-  if(DEBUG_MODE==1) if(blockIdx.x==0&&threadIdx.x==0) printf("【1】 after declare shared_memory\n");
+  if(DEBUG_MODE>=1) if(blockIdx.x==0&&threadIdx.x==0) printf("【1】 after declare shared_memory\n");
 
   // if(ptr > hb) return;
 
@@ -87,10 +91,11 @@ __global__ void fused_forward_kernel_test(int m, int nnz, int h, int f,
   if (ptr < hb) {
     cid = col_ind[ptr]; 
     attn_col_val = attn_col[cid * h + hid]; 
+    if(DEBUG_MODE>=0)if(rid==testRid) printf("attn_col_val[%d]=%f\n",cid, attn_col_val);
     weight = attn_row_val + attn_col_val; 
     weight = LeakyRelu(weight, negative_slope); 
   }
-  if(DEBUG_MODE==1) if(blockIdx.x==0&&threadIdx.x==0) printf("【1】 after get weight=relu(w1+w2)\n");
+  if(DEBUG_MODE>=1) if(blockIdx.x==0&&threadIdx.x==0) printf("【1】 after get weight=relu(w1+w2)\n");
 
 
   __syncwarp();
@@ -103,13 +108,14 @@ __global__ void fused_forward_kernel_test(int m, int nnz, int h, int f,
       }      
     }
   }
-  if(DEBUG_MODE==1) if(blockIdx.x==0&&threadIdx.x==0) printf("【1】 after compute weightMax\n");
+  if(DEBUG_MODE>=0) if(rid==testRid) printf("weightMax=%f\n", w);
+  if(DEBUG_MODE>=1) if(blockIdx.x==0&&threadIdx.x==0) printf("【1】 after compute weightMax\n");
 
 
   if( rid>=0 && tid==(row_ptr[rid]-lb)) {
     weightMax[rid-left] = w; 
   }
-  if(DEBUG_MODE==1) if(blockIdx.x==0&&threadIdx.x==0) printf("【1】 after compute weightMax2\n");
+  if(DEBUG_MODE>=1) if(blockIdx.x==0&&threadIdx.x==0) printf("【1】 after compute weightMax2\n");
 
   // if (threadIdx.x == 0 && rid>0)
   //   edge_max[rid * h + hid] = weightMax[rid];
@@ -119,7 +125,7 @@ __global__ void fused_forward_kernel_test(int m, int nnz, int h, int f,
   if (ptr < hb && rid>=0) {
     exptmp = exp(weight - weightMax[rid-left]); 
   }
-  if(DEBUG_MODE==1) if(blockIdx.x==0&&threadIdx.x==0) printf("【1】 after compute exptmp\n");
+  if(DEBUG_MODE>=1) if(blockIdx.x==0&&threadIdx.x==0) printf("【1】 after compute exptmp\n");
 
   __syncwarp();
   for (int stride = 1; stride < 32; stride <<= 1) {
@@ -130,8 +136,9 @@ __global__ void fused_forward_kernel_test(int m, int nnz, int h, int f,
       }      
     }
   }
+  if(DEBUG_MODE>=0)if(rid==testRid) printf("expAll=%f\n", exptmp);
 
-  if(DEBUG_MODE==1) if(blockIdx.x==0&&threadIdx.x==0) printf("【1】 after compute expAll\n");
+  if(DEBUG_MODE>=1) if(blockIdx.x==0&&threadIdx.x==0) printf("【1】 after compute expAll\n");
 
   if(ptr < hb && rid >= 0 && rid <= right && tid==(row_ptr[rid]-lb)) {
     expAll[rid-left] = exptmp; 
@@ -152,8 +159,9 @@ __global__ void fused_forward_kernel_test(int m, int nnz, int h, int f,
     float tmp_feat = 0;
     if(ptr<hb){
       tmp_feat = weight * in_feat[cid * h * f + hid * f + fid];
+      if(DEBUG_MODE>=0)if(rid==testRid&&fid==0) printf("cid=%d【acc=w*in_feat】[%f=%f*%f] \n",cid, tmp_feat, weight, in_feat[cid * h * f + hid * f + fid]);
     }
-    if(DEBUG_MODE==1) if(blockIdx.x==0&&threadIdx.x==0&&fid==f-1) printf("【1】 after compute tmp_feat\n");
+    if(DEBUG_MODE>=1) if(blockIdx.x==0&&threadIdx.x==0&&fid==f-1) printf("【1】 after compute tmp_feat\n");
 
     __syncwarp();
     for (int stride = 1; stride < 32; stride <<= 1) {
@@ -170,23 +178,20 @@ __global__ void fused_forward_kernel_test(int m, int nnz, int h, int f,
       out_feat[rid * h * f + hid * f + fid] = tmp_feat; 
     }
   }
-  if(DEBUG_MODE==1) if(blockIdx.x==0&&threadIdx.x==0) printf("【1】 Kernel end: after write into out_feat\n");
+  if(DEBUG_MODE>=1) if(blockIdx.x==0&&threadIdx.x==0) printf("【1】 Kernel end: after write into out_feat\n");
   
 }
 
-__global__ void compute_row_limits_kernel(int nblocks, int NNZ_PER_BLOCK, int m,
-  int *csr_row_ptr, int* row_limits){
-  if(DEBUG_MODE==1) if(blockIdx.x==0&&threadIdx.x==0) printf("【0b】 into compute row_limits kernel\n");
-
-
+__global__ void compute_row_limits_kernel(const int nblocks, const int NNZ_PER_BLOCK, const int m,
+  const int* csr_row_ptr, int* row_limits){
+  if(DEBUG_MODE>=1) if(blockIdx.x==0&&threadIdx.x==0) printf("【0b】 into compute row_limits kernel\n");
   int gid = blockDim.x * blockIdx.x + threadIdx.x; // 第几个block
 
   if(gid >= nblocks){
     return;
   }
 
-  int s0 = NNZ_PER_BLOCK * gid; // 该行前面有不超过 s0 个的非零元
-  // 最终效果为：可能有部分block处理的nnz个数大于NNZ_PER_BLOCK，但总体来说，每个block平均处理NNZ_PER_BLOCK个元素
+  int s0 = NNZ_PER_BLOCK * gid;
 
   int left  = 0;
   int right = m;
@@ -210,15 +215,40 @@ __global__ void compute_row_limits_kernel(int nblocks, int NNZ_PER_BLOCK, int m,
   {
       row_limits[gid + 1] = m;
   }
-  if(DEBUG_MODE==1) if(blockIdx.x==0&&threadIdx.x==0) printf("【0b】 end of compute row_limits kernel\n");
 
-  // if(DEBUG_MODE==1){
-  //   if(blockIdx.x==0&&threadIdx.x==0) {
-  //     printf("\nrow_limits[%d]:\n", nblocks);
-  //     for(int i=0; i<nblocks+1; i++) printf("%d ", row_limits[i]);
-  //     printf("\n\n");
+  // if(blockIdx.x==0&&threadIdx.x==0){
+  //   printf("NNZ_PER_BLOCK (从row_limits计算实际划分的每个block需处理的nnz数量)\n");
+  //   int left2, right2, lb2, hb2;
+  //   for(int i=0;i<nblocks+1;i++){
+  //       left2 = row_limits[i];
+  //       right2 = row_limits[i+1];
+  //       lb2 = csr_row_ptr[left2];
+  //       hb2 = csr_row_ptr[right2];
+
+  //       if(i%10==0)printf("\n【block=%d】", i);
+  //       printf("%d ", hb2-lb2);
   //   }    
   // }
+
+  if(DEBUG_MODE>=1) if(blockIdx.x==0&&threadIdx.x==0) printf("【0b】 end of compute row_limits kernel\n");
+
+  if(DEBUG_MODE>=4){
+    if(blockIdx.x==0&&threadIdx.x==0) {
+
+      printf("\ncsr_row_ptr[%d]:\n", nblocks);
+      for(int i=0; i<m+1; i++) {
+        if(i%10==0) printf("\n【%d】", i);
+        printf("%d ", csr_row_ptr[i]);
+      }
+
+      printf("\n\nrow_limits[%d]:\n", nblocks);
+      for(int i=0; i<nblocks+1; i++) {
+        if(i%10==0) printf("\n【%d】", i);
+        printf("%d ", row_limits[i]);
+      }
+      printf("\n\n");
+    }    
+  }
 
 
 }

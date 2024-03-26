@@ -55,6 +55,8 @@ __global__ void fused_forward_kernel(int m, int nnz, int h, int f,
     }
     weightMax = MAX(weight, weightMax);
   }
+
+
   if (threadIdx.x == 0)
     edge_max[rid * h + hid] = weightMax;
 
@@ -76,6 +78,8 @@ __global__ void fused_forward_kernel(int m, int nnz, int h, int f,
     }
     expAll += exptmp;
   }
+
+
   if (threadIdx.x == 0)
     edge_sum[rid * h + hid] = expAll;
 
@@ -108,6 +112,7 @@ __global__ void fused_forward_kernel(int m, int nnz, int h, int f,
         int cid = cid_sh[kk];
         float val = attn_val_sh[kk];
         acc += val * in_feat[cid * h * f + hid * f + fid]; 
+
         // if(blockIdx.x==0 && blockIdx.y==0 && j==0){
         //   printf("block(%d, %d) warp(%d) tid(%d, %d): cid=%d, hid=%d, fid=%d\n", 
         //   blockIdx.x, blockIdx.y, j, threadIdx.x, threadIdx.y, cid, hid, fid);

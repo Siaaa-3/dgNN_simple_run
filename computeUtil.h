@@ -5,7 +5,9 @@
 #include <cuda_runtime.h>
 #include <cuda_runtime_api.h>
 
-#define DEBUG_MODE 0
+#define DEBUG_MODE 3
+#define testRid -2
+
 
 #define CEIL(x, y) (((x) + (y)-1) / (y))
 
