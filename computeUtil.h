@@ -6,6 +6,7 @@
 #include <cuda_runtime_api.h>
 
 #define DEBUG_MODE 3
+// #define testRid 7551
 #define testRid -2
 
 

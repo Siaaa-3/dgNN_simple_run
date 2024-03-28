@@ -29,13 +29,6 @@ __global__ void fused_forward_kernel_test(int m, int nnz, int h, int f,
   
   int tid = threadIdx.x; 
   int hid = blockIdx.y; 
-  
-  // if(blockIdx.x >= nlimits) return;
-  // if((blockIdx.x != 0 && (row_limits[blockIdx.x] == row_limits[blockIdx.x-1])) 
-  //   || (blockIdx.x != (nlimits - 1) && (row_limits[blockIdx.x] == row_limits[blockIdx.x+1]))){
-  //   printf("badRow=%d ", row_limits[blockIdx.x]);
-  //   return;
-  // }
 
   int left = row_limits[blockIdx.x]; // 第几行
   int right = row_limits[blockIdx.x+1];
@@ -62,9 +55,11 @@ __global__ void fused_forward_kernel_test(int m, int nnz, int h, int f,
     // if(blockIdx.x==4 && tid<4) printf("tid=%d  rid=%d\n", tid, rid);
   }
   // if(blockIdx.x<4 && threadIdx.x > 57) printf("bloxk.x=%d  thread.x = %d: rid=%d\n", blockIdx.x, threadIdx.x, rid);
+
   float attn_row_val = 0;
   if(ptr < hb) attn_row_val = attn_row[rid * h + hid]; 
-  if(DEBUG_MODE>=0) if(rid==testRid) {printf("\ntestRid=%d, 查看过程中间各结果\n",testRid );}
+  if(DEBUG_MODE>=0) if(blockIdx.x==0&&threadIdx.x==0) {printf("\ntestRid=%d, 查看过程中间各结果\n",testRid );}
+  if(DEBUG_MODE>=0)if(rid==testRid) printf("left=%d(行), right=%d(行), lb=%d(nnz), rb=%d(nnz)\n", left, right, lb, hb); 
   if(DEBUG_MODE>=0) if(rid==testRid) printf("attn_row_val=%f\n", attn_row_val);
 
   if(DEBUG_MODE>=1) if(blockIdx.x==0&&threadIdx.x==0) printf("【1】 after compute rid\n");
@@ -91,7 +86,7 @@ __global__ void fused_forward_kernel_test(int m, int nnz, int h, int f,
   if (ptr < hb) {
     cid = col_ind[ptr]; 
     attn_col_val = attn_col[cid * h + hid]; 
-    if(DEBUG_MODE>=0)if(rid==testRid) printf("attn_col_val[%d]=%f\n",cid, attn_col_val);
+    if(DEBUG_MODE>=0)if(rid==testRid) printf("tid=%d: attn_col_val[%d]=%f\n",tid, cid, attn_col_val);
     weight = attn_row_val + attn_col_val; 
     weight = LeakyRelu(weight, negative_slope); 
   }
@@ -102,19 +97,21 @@ __global__ void fused_forward_kernel_test(int m, int nnz, int h, int f,
   float w = weight;
   for (int stride = 1; stride < 32; stride <<= 1) {
     float tmp = __shfl_down_sync(0xffffffff, w, stride, 32); 
+    if(DEBUG_MODE>=0)if(rid==testRid) printf("tid=%d stride=%d: w=%f, tmpW=%f, shared_row[tid+strid]=%d  ==?  rid=%d\n",
+      tid, stride, w, tmp, shared_row[tid+stride], rid);
     if((tid+stride) < nthreads){
       if(shared_row[tid + stride] == rid) {
         w = MAX(tmp, w);
       }      
     }
   }
-  if(DEBUG_MODE>=0) if(rid==testRid) printf("weightMax=%f\n", w);
   if(DEBUG_MODE>=1) if(blockIdx.x==0&&threadIdx.x==0) printf("【1】 after compute weightMax\n");
 
 
   if( rid>=0 && tid==(row_ptr[rid]-lb)) {
     weightMax[rid-left] = w; 
   }
+  if(DEBUG_MODE>=0) if(rid==testRid) printf("tid=%d: weightMax=%f\n",tid, weightMax[rid-left]);
   if(DEBUG_MODE>=1) if(blockIdx.x==0&&threadIdx.x==0) printf("【1】 after compute weightMax2\n");
 
   // if (threadIdx.x == 0 && rid>0)
@@ -136,13 +133,13 @@ __global__ void fused_forward_kernel_test(int m, int nnz, int h, int f,
       }      
     }
   }
-  if(DEBUG_MODE>=0)if(rid==testRid) printf("expAll=%f\n", exptmp);
 
   if(DEBUG_MODE>=1) if(blockIdx.x==0&&threadIdx.x==0) printf("【1】 after compute expAll\n");
 
   if(ptr < hb && rid >= 0 && rid <= right && tid==(row_ptr[rid]-lb)) {
     expAll[rid-left] = exptmp; 
   }
+  if(DEBUG_MODE>=0)if(rid==testRid) printf("expAll=%f\n", expAll[rid-left]);
   
   // if (threadIdx.x == 0)
   //   edge_sum[rid * h + hid] = expAll[rid];
@@ -171,15 +168,13 @@ __global__ void fused_forward_kernel_test(int m, int nnz, int h, int f,
           tmp_feat += tmp;
         }        
       }
-
     }
+
 
     if(ptr < hb && rid >= 0 && tid == (row_ptr[rid]-lb)) {
       out_feat[rid * h * f + hid * f + fid] = tmp_feat; 
     }
-  }
-  if(DEBUG_MODE>=1) if(blockIdx.x==0&&threadIdx.x==0) printf("【1】 Kernel end: after write into out_feat\n");
-  
+  }  
 }
 
 __global__ void compute_row_limits_kernel(const int nblocks, const int NNZ_PER_BLOCK, const int m,
@@ -236,17 +231,17 @@ __global__ void compute_row_limits_kernel(const int nblocks, const int NNZ_PER_B
     if(blockIdx.x==0&&threadIdx.x==0) {
 
       printf("\ncsr_row_ptr[%d]:\n", nblocks);
-      for(int i=0; i<m+1; i++) {
+      for(int i=30150; i<30250; i++) {
         if(i%10==0) printf("\n【%d】", i);
         printf("%d ", csr_row_ptr[i]);
       }
 
-      printf("\n\nrow_limits[%d]:\n", nblocks);
-      for(int i=0; i<nblocks+1; i++) {
-        if(i%10==0) printf("\n【%d】", i);
-        printf("%d ", row_limits[i]);
-      }
-      printf("\n\n");
+      // printf("\n\nrow_limits[%d]:\n", nblocks);
+      // for(int i=0; i<nblocks+1; i++) {
+      //   if(i%10==0) printf("\n【%d】", i);
+      //   printf("%d ", row_limits[i]);
+      // }
+      // printf("\n\n");
     }    
   }
 

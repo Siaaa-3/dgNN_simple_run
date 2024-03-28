@@ -1,0 +1,54 @@
+run test
+filename:./matrix/m352w_nnz1919w/csr_m352w_nnz1919w.mtx
+The CSR matrix does not have more than 1024(overload_threshold) rows with non-zero elements.
+
+Read CSR matrix success.
+mtxMode=real
+m=3523317 nnz=19194193
+max_nnzPerRow=27
+
+计算rowlimits的参数:
+max_nnzPerRow=27
+NNZ_PER_BLOCK=32
+nblocks=599819
+
+
+共享内存参数:
+nthreads=54, m_per_block=16
+
+testRid=7551, 查看过程中间各结果
+left=7541(行), right=7551(行), lb=15102(nnz), rb=15135(nnz)
+left=7541(行), right=7551(行), lb=15102(nnz), rb=15135(nnz)
+left=7541(行), right=7551(行), lb=15102(nnz), rb=15135(nnz)
+attn_row_val=0.064107
+attn_row_val=0.064107
+attn_row_val=0.064107
+tid=32: attn_col_val[1583261]=0.306443
+tid=30: attn_col_val[1583262]=0.939790
+tid=31: attn_col_val[7551]=0.094259
+tid=32 stride=1: w=0.370550, tmpW=0.000000, shared_row[tid+strid]=-1  ==?  rid=7551
+tid=30 stride=1: w=1.003897, tmpW=0.158366, shared_row[tid+strid]=7551  ==?  rid=7551
+tid=31 stride=1: w=0.158366, tmpW=0.158366, shared_row[tid+strid]=7551  ==?  rid=7551
+tid=32 stride=2: w=0.370550, tmpW=0.000000, shared_row[tid+strid]=-1  ==?  rid=7551
+tid=30 stride=2: w=1.003897, tmpW=1.003897, shared_row[tid+strid]=7551  ==?  rid=7551
+tid=31 stride=2: w=0.158366, tmpW=0.158366, shared_row[tid+strid]=-1  ==?  rid=7551
+tid=32 stride=4: w=0.370550, tmpW=0.000000, shared_row[tid+strid]=-1  ==?  rid=7551
+tid=30 stride=4: w=1.003897, tmpW=1.003897, shared_row[tid+strid]=-1  ==?  rid=7551
+tid=31 stride=4: w=0.158366, tmpW=0.158366, shared_row[tid+strid]=-1  ==?  rid=7551
+tid=32 stride=8: w=0.370550, tmpW=0.000000, shared_row[tid+strid]=-1  ==?  rid=7551
+tid=30 stride=8: w=1.003897, tmpW=1.003897, shared_row[tid+strid]=-1  ==?  rid=7551
+tid=31 stride=8: w=0.158366, tmpW=0.158366, shared_row[tid+strid]=-1  ==?  rid=7551
+tid=32 stride=16: w=0.370550, tmpW=0.000000, shared_row[tid+strid]=-1  ==?  rid=7551
+tid=30 stride=16: w=1.003897, tmpW=1.003897, shared_row[tid+strid]=-1  ==?  rid=7551
+tid=31 stride=16: w=0.158366, tmpW=0.158366, shared_row[tid+strid]=-1  ==?  rid=7551
+tid=32: weightMax=0.000000
+tid=30: weightMax=1.003897
+tid=31: weightMax=1.003897
+expAll=0.000000
+expAll=2.858659
+expAll=2.858659
+cid=1583261【acc=w*in_feat】[0.009834=0.206318*0.047664] 
+cid=1583262【acc=w*in_feat】[0.373243=0.388683*0.960276] 
+cid=7551【acc=w*in_feat】[0.020788=0.166873*0.124575] 
+
+Kernel execution time: 5.172864 milliseconds

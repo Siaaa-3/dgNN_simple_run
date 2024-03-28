@@ -28,7 +28,7 @@ int main() {
     int overload_threshold = 1024; // 一个block最多处理多少非零元
     int max_nnzPerRow = 0;
 
-    std::string file = "m8w_nnz20w";
+    std::string file = "m52w_nnz157w";
     std::string program = "test"; //test dgnn
     if(program=="test")printf("run test\n");
     else if(program=="dgnn") printf("run dgNN\n");
@@ -112,8 +112,8 @@ int main() {
         std::cout << "nblocks=" << nblocks << "" <<endl;
     }
     
-    dim3 blocks0(3);
-    dim3 threads0(1024);
+    dim3 blocks0(m/256 + 1);
+    dim3 threads0(256);
 
     int nlimits = nblocks + 1;
     cudaMalloc(&row_limits, nlimits * sizeof(int));
@@ -221,4 +221,4 @@ int main() {
 }
 
 // nvcc -g -G -o test gatconv_main_fixed.cu
-//  cuda-memcheck ./test 2>&1 | tee test_output.log
+//  cuda-memcheck ./test 2>&1 | tee output_test.log

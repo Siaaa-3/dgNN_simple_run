@@ -15,8 +15,8 @@
 #include <cuda_runtime.h>
 
 #define LeakyRelu(x, negative_slope) ((x > 0) ? (x) : ((x)*negative_slope))
-
 #define testRid -2
+//  ./test 2>&1 | tee output_cpu.log
 
 void printCSR(int m, int nnz, int* row_ptr, int* col_ind) {
     for (int row = 0; row < m; ++row) {
@@ -96,7 +96,6 @@ int getForwardParams(const int* row_limits, const int& nlimits, const std::vecto
         int left = row_limits[i];
         int right = row_limits[i+1]; 
         if(right - left > max_mPerBlock) max_mPerBlock = right - left;
-        // printf("i=%d   left=%d\n", i, left);
         
         int nnz = row_ptr[right] - row_ptr[left];
         if(nnz > max_nnzPerBlock) max_nnzPerBlock = nnz;
@@ -622,10 +621,12 @@ void compareResults(const std::string& file1, const std::string& file2, int& num
         return ; 
     }
 
-    for (size_t i = 0; i < data1.size(); ++i) {
+    for (int i = 0; i < data1.size(); ++i) {
         // if (std::abs(data1[i] - data2[i]) > std::numeric_limits<float>::epsilon()) {
         if (std::abs(data1[i] - data2[i]) > 1e-4) {
             if(numDif == 0) difPos = i;
+            if(numDif<20&&numDif%4==0) printf("pos=%d:    data1(%s)=%f   data2(%s)=%f \n", 
+            i, file1.c_str(), data1[i], file2.c_str(), data2[i]);
             numDif++;
         }
     }
@@ -646,7 +647,8 @@ void computeResultCPU(const std::string& attn_row_file, const std::string& attn_
     readDenseMtx(attn_col_file, attn_col);
     readDenseMtx(in_feat_file, in_feat);
 
-    float out_feat[m * h * f] = {0};
+    int size = m * h * f;
+    float* out_feat = new float[size];
 
     for(int hid = 0; hid < h; ++hid){
         for(int rid = 0; rid < row_ptr.size()-1; ++rid){
@@ -697,26 +699,28 @@ void computeResultCPU(const std::string& attn_row_file, const std::string& attn_
     }
     saveToFile(out_feat_file, out_feat, m, h, f);
 
+    delete[] out_feat;
+
 }
 
 
 // int main()
 // {
 //     // nvcc -o test utils.cpp
+//     std::string file = "m352w_nnz1919w";
+//     int h = 1;
+//     int f = 4;
+
+//     int m;
+//     std::string base = "./matrix/" + file + "/";
+//     std::string csr_file = base + "csr_" + file + ".mtx";
+//     std::string mtxMode;
+
+//     readCSR(csr_file, m, mtxMode);
+//     std::printf("csr_file=%s  m=%d  mtxMode=%s  \n", csr_file.c_str(), m, mtxMode.c_str());
 
 //     bool newFeatMtx = false;
 //     if(newFeatMtx){
-//         int m;
-//         int h = 1;
-//         int f = 4;
-
-//         // attn_row[m, h]
-//         std::string file = "m1138_nnz2596";
-//         std::string base = "./matrix/" + file + "/";
-//         std::string filename = base + "csr_" + file + ".mtx";
-//         std::string mtxMode;
-//         readCSR(filename, m, mtxMode);
-//         std::printf("filename=%s  m=%d  mtxMode=%s  \n", filename.c_str(), m, mtxMode.c_str());
 //         std::string tail = std::to_string(m)+"_h"+std::to_string(h);
 
 //         std::string  attnrow_path = base + "attn_row_m"+ tail +".txt";
@@ -729,39 +733,32 @@ void computeResultCPU(const std::string& attn_row_file, const std::string& attn_
 
 //         std::string  infeat_path = base + "in_feat_m"+ tail +"_f"+std::to_string(f)+".txt";
 //         const char* file_in_feat = infeat_path.c_str();
-//         generateDenseMtx(m, h, f, file_in_feat);        
+//         generateDenseMtx(m, h, f, file_in_feat);   
+
+//         // std::cout << "attn_row_file: " << attnrow_path << std::endl;  
+//         // std::cout << "attn_col_file: " << attncol_path << std::endl;  
+//         // std::cout << "in_feat_file: " << infeat_path << std::endl;  
 //     }
 
 //     bool computeResCPU = true;
 //     if(computeResCPU){
-//         std::string file = "m1138_nnz2596";
-//         std::string base = "./matrix/" + file;
+//         std::string attn_row_file = base + "attn_row_m" + std::to_string(m) + "_h" + std::to_string(h) + ".txt";
+//         std::string attn_col_file = base + "attn_col_m" + std::to_string(m) + "_h" + std::to_string(h) + ".txt";
+//         std::string in_feat_file = base + "in_feat_m" + std::to_string(m) + "_h" + std::to_string(h) + "_f" + std::to_string(f) + ".txt";
 
-//         std::string csr_file = base + "/csr_" + file + ".mtx";
-
-//         int m = 1138;
-//         int h = 1;
-//         int f = 4;
-//         std::string attn_row_file = base + "/attn_row_m" + std::to_string(m) + "_h" + std::to_string(h) + ".txt";
-//         std::string attn_col_file = base + "/attn_col_m" + std::to_string(m) + "_h" + std::to_string(h) + ".txt";
-//         std::string in_feat_file = base + "/in_feat_m" + std::to_string(m) + "_h" + std::to_string(h) + "_f" + std::to_string(f) + ".txt";
-
-//         std::string out_feat_file = base + "/result_CPU_h" + std::to_string(h) + "_f" + std::to_string(f) + ".txt";
+//         std::string out_feat_file = base + "result_CPU_h" + std::to_string(h) + "_f" + std::to_string(f) + ".txt";
         
 //         float attn_drop = 0.1, negative_slope = 0.01;
 //         computeResultCPU(attn_row_file, attn_col_file, in_feat_file, csr_file, 
-//         out_feat_file, h, f, negative_slope, attn_drop);
+//           out_feat_file, h, f, negative_slope, attn_drop);
 //     }
     
     
 //     bool compare = true;
 //     if(compare){
-//         int h = 1, f = 4;
-//         std::string file = "m1138_nnz2596";
-//         std::string base = "./matrix/" + file;
-//         std::string file1 = base + "/result_test_h"+ std::to_string(h) + "_f" + std::to_string(f) +".txt";
-//         std::string file2 = base + "/result_dgnn_h"+ std::to_string(h) + "_f" + std::to_string(f) +".txt";
-//         std::string file3 = base + "/result_CPU_h"+ std::to_string(h) + "_f" + std::to_string(f) +".txt";
+//         std::string file1 = base + "result_test_h"+ std::to_string(h) + "_f" + std::to_string(f) +".txt";
+//         std::string file2 = base + "result_dgnn_h"+ std::to_string(h) + "_f" + std::to_string(f) +".txt";
+//         std::string file3 = base + "result_CPU_h"+ std::to_string(h) + "_f" + std::to_string(f) +".txt";
 
 //         int numDif = 0, difPos=0;
 //         // file1 放test， file2放dgnn
@@ -788,30 +785,31 @@ void computeResultCPU(const std::string& attn_row_file, const std::string& attn_
 //     }
 
 
-//     bool rowLimitsCPU = false;
-//     if(rowLimitsCPU){
-//         int nblocks = 10; 
-//         int NNZ_PER_BLOCK = 5; 
-//         int m = 39;
-//         int nnz = 131;
-//         int* row_limits = (int*)malloc(sizeof(int)*(nblocks+1));
+//     // bool rowLimitsCPU = false;
+//     // if(rowLimitsCPU){
+//     //     int nblocks = 10; 
+//     //     int NNZ_PER_BLOCK = 5; 
+//     //     // int m = 39;
+//     //     int nnz = 131;
+//     //     int* row_limits = (int*)malloc(sizeof(int)*(nblocks+1));
 
-//         std::string file = "m39_nnz131";
-//         std::string base = "./matrix/" + file;
-//         std::string mtxMode = "real";
-//         std::vector<int> row_ptr_host, col_ind_host;
-//         std::string filename = base + "/csr_" + file + ".mtx";
-//         if (readCSR(filename, m, nnz, row_ptr_host, col_ind_host, mtxMode) == 0) {
-//             std::cerr << "Read CSR matrix success." << std::endl;
-//         } else {
-//             std::cerr << "Failed to read the matrix from file." << std::endl;
-//         }
+//     //     // std::string file = "m39_nnz131";
+//     //     // std::string base = "./matrix/" + file;
+//     //     std::string mtxMode = "real";
+//     //     std::vector<int> row_ptr_host, col_ind_host;
+//     //     std::string csr_file = base + "csr_" + file + ".mtx";
+//     //     if (readCSR(csr_file, m, nnz, row_ptr_host, col_ind_host, mtxMode) == 0) {
+//     //         std::cerr << "Read CSR matrix success." << std::endl;
+//     //     } else {
+//     //         std::cerr << "Failed to read the matrix from csr_file." << std::endl;
+//     //     }
 
-//         computeRowlimitsCPU(nblocks, NNZ_PER_BLOCK, m, row_ptr_host, row_limits);
+//     //     computeRowlimitsCPU(nblocks, NNZ_PER_BLOCK, m, row_ptr_host, row_limits);
 
-//         printf("row_limits:\n");
-//         for(int i=0; i<nblocks+1; i++) printf("%d ", row_limits[i]);
-//         printf("\n");
-//     }
+//     //     printf("row_limits:\n");
+//     //     for(int i=0; i<nblocks+1; i++) printf("%d ", row_limits[i]);
+//     //     printf("\n");
+//     // }
+
 //    return 0;
 // }

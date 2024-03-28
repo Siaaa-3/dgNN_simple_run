@@ -1,0 +1,28 @@
+csr_file=./matrix/m352w_nnz1919w/csr_m352w_nnz1919w.mtx  m=3523317  mtxMode=real  
+testRid=7551, 查看过程中间各结果
+attn_row_val=0.064107
+attn_col_val[1583262]=0.939790
+attn_col_val[7551]=0.094259
+attn_col_val[1583261]=0.306443
+weightMax=1.003897
+expAll=1.960141
+cid=1583262【acc+=w*in_feat】[0.544335=0.566853*0.960276] 
+
+cid=7551【acc+=w*in_feat】[0.574652=0.243366*0.124575] 
+
+cid=1583261【acc+=w*in_feat】[0.588994=0.300892*0.047664] 
+
+Data saved to './matrix/m352w_nnz1919w/result_CPU_h1_f4.txt' successfully!
+pos=30204:    data1(./matrix/m352w_nnz1919w/result_test_h1_f4.txt)=0.788062   data2(./matrix/m352w_nnz1919w/result_CPU_h1_f4.txt)=0.588994 
+pos=30248:    data1(./matrix/m352w_nnz1919w/result_test_h1_f4.txt)=0.389782   data2(./matrix/m352w_nnz1919w/result_CPU_h1_f4.txt)=0.410586 
+pos=30332:    data1(./matrix/m352w_nnz1919w/result_test_h1_f4.txt)=0.602095   data2(./matrix/m352w_nnz1919w/result_CPU_h1_f4.txt)=0.645236 
+pos=30376:    data1(./matrix/m352w_nnz1919w/result_test_h1_f4.txt)=0.881170   data2(./matrix/m352w_nnz1919w/result_CPU_h1_f4.txt)=0.918952 
+pos=30460:    data1(./matrix/m352w_nnz1919w/result_test_h1_f4.txt)=0.151471   data2(./matrix/m352w_nnz1919w/result_CPU_h1_f4.txt)=0.365525 
+【test&CPU】num of diffrent rows[30204] = 905842
+dgnn res == CPU res
+pos=30204:    data1(./matrix/m352w_nnz1919w/result_test_h1_f4.txt)=0.788062   data2(./matrix/m352w_nnz1919w/result_dgnn_h1_f4.txt)=0.588994 
+pos=30248:    data1(./matrix/m352w_nnz1919w/result_test_h1_f4.txt)=0.389782   data2(./matrix/m352w_nnz1919w/result_dgnn_h1_f4.txt)=0.410586 
+pos=30332:    data1(./matrix/m352w_nnz1919w/result_test_h1_f4.txt)=0.602095   data2(./matrix/m352w_nnz1919w/result_dgnn_h1_f4.txt)=0.645236 
+pos=30376:    data1(./matrix/m352w_nnz1919w/result_test_h1_f4.txt)=0.881170   data2(./matrix/m352w_nnz1919w/result_dgnn_h1_f4.txt)=0.918952 
+pos=30460:    data1(./matrix/m352w_nnz1919w/result_test_h1_f4.txt)=0.151471   data2(./matrix/m352w_nnz1919w/result_dgnn_h1_f4.txt)=0.365525 
+【test&dgnn】num of diffrent rows[30205] = 905843
