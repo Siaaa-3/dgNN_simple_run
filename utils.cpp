@@ -16,6 +16,8 @@
 
 #define LeakyRelu(x, negative_slope) ((x > 0) ? (x) : ((x)*negative_slope))
 #define testRid -2
+// #define rowptr_file "./matrix/m352w_nnz1919w/csr_rowptr.txt"
+#define rowptr_file ""
 //  ./test 2>&1 | tee output_cpu.log
 
 void printCSR(int m, int nnz, int* row_ptr, int* col_ind) {
@@ -46,6 +48,13 @@ void printDevices(){
         std::cout << "  Memory Bus Width (bits): " << prop.memoryBusWidth << std::endl;
         std::cout << "  Peak Memory Bandwidth (GB/s): " <<
             2.0*prop.memoryClockRate*(prop.memoryBusWidth/8)/1.0e6 << std::endl;
+
+        size_t freeMemory = 0;
+        size_t totalMemory = 0;
+        cudaError_t status = cudaMemGetInfo(&freeMemory, &totalMemory);
+        std::cout << "  Free memory: " << freeMemory / (1024.0 * 1024.0) << " MB" << std::endl;
+        std::cout << "  Total memory: " << totalMemory / (1024.0 * 1024.0) << " MB" << std::endl;
+
         printf("  Maximum shared memory per block: %zu bytes\n", prop.sharedMemPerBlock);
         std::cout << "  Max Threads per Block: " << prop.maxThreadsPerBlock << std::endl;
         std::cout << "  Max thread dimensions (x, y, z): ("
@@ -90,6 +99,7 @@ int getLimitsParams(const int& max_nnzPerRow, const int& overload_threshold, con
 
 int getForwardParams(const int* row_limits, const int& nlimits, const std::vector<int>& row_ptr, 
   int& nthreads, int& m_per_block){
+
     int max_nnzPerBlock = 0;
     int max_mPerBlock = 0;
     for(int i = 0; i < nlimits - 1; ++i){
@@ -101,9 +111,36 @@ int getForwardParams(const int* row_limits, const int& nlimits, const std::vecto
         if(nnz > max_nnzPerBlock) max_nnzPerBlock = nnz;
     }
 
+    // power: >= max_nnzPerBlock 的最小的 2次幂
+    // if ((max_nnzPerBlock & (max_nnzPerBlock - 1)) == 0) {
+    //     nthreads = max_nnzPerBlock;
+    // }else{
+    //     nthreads = 1;
+    //     while (max_nnzPerBlock > 0) {
+    //         max_nnzPerBlock >>= 1;
+    //         nthreads <<= 1;
+    //     }        
+    // }
     nthreads = max_nnzPerBlock;
-    m_per_block = max_mPerBlock;
 
+    m_per_block = max_mPerBlock;
+    
+
+    if(rowptr_file != "" ){
+        std::ofstream file(rowptr_file, std::ios::app);
+        if (!file.is_open()) {
+            std::cerr << "【getForwardParams】 to open file: " << rowptr_file << std::endl;
+        }
+
+        file << "\n\nrow_limits:\n";
+        for(int i = 0; i < nlimits - 1 && i < 1000; i++){
+            if(i % 10 == 0){
+                file << "\n【bid=" << i <<  "】";
+            }
+            file << row_limits[i] << " ";
+        }
+
+    }
     return 0;
 }
 
@@ -202,7 +239,39 @@ int readCSR(const std::string& filename, int& numRows, int& numEntries,
     }
 }
 
-// compute res cpu
+void saveRowptrToFile(const std::string& filename, const std::vector<int>& row_ptr,  const std::vector<int>& col_ind) {
+    std::ofstream file(filename, std::ios::app); // 打开文件
+
+    if (!file.is_open()) {
+        std::cerr << "【saveRowptrToFile】Failed to open file: " << filename << std::endl;
+        return;
+    }
+
+    file << "\n\norigin file:\n";
+    file << filename << std::endl;
+
+    file << "\nrow_ptr:\n";
+    for (int i = 0; i < row_ptr.size() && i < 1000; i++) {
+        if(i % 10 == 0){
+            file << "\n【rid=" << i << "】";
+        }
+        file << row_ptr[i] << " ";
+    }
+    file << std::endl;
+
+    file << "\ncol_ind:\n";
+    for(int i = 0; i < col_ind.size() && i < 2000; i++){
+        if(i % 10 == 0){
+            file << "\n【nnz=" << i << "】";
+        }
+        file << col_ind[i] << " ";
+    }
+    file << std::endl;
+
+    file.close(); // 关闭文件
+}
+
+// compute res cpu + save row_ptr
 int readCSR(const std::string& filename, int& numRows, int& numEntries,
     std::vector<int>& row_ptr, std::vector<int>& col_indices) 
 {
@@ -246,7 +315,6 @@ int readCSR(const std::string& filename, int& numRows, int& numEntries,
             float data;
             file >> row >> col;
             if(mtxMode=="pattern"){
-                
             }else if(mtxMode=="real") {
                 file >> data;
             }else if(mtxMode=="complex"){
@@ -261,18 +329,6 @@ int readCSR(const std::string& filename, int& numRows, int& numEntries,
         }
 
         file.close();
-
-        // printf("row_indices:\n");
-        // for(int i=0;i<row_indices.size();i++)
-        //     if(row_indices[i] < 51)std::cout << row_indices[i] << "(i=" << i+15<<")" << " ";
-        // std::cout<<std::endl<<std::endl;
-
-        
-        // printf("col_indices:\n");
-        // for(int i=0;i<50;i++)
-        //     std::cout << col_indices[i] << " ";
-        // std::cout<<std::endl<<std::endl;
-
 
         std::vector<int> sorted_indices(row_indices.size());
         std::iota(sorted_indices.begin(), sorted_indices.end(), 0); 
@@ -297,30 +353,8 @@ int readCSR(const std::string& filename, int& numRows, int& numEntries,
             row_ptr[i + 1] += row_ptr[i];
         }
 
-        // std::cout << "\n\nrow_ptr(总偏移量) contains: ";
-        // for(int i = 0; i < row_ptr.size(); i++) {
-        //     if(i%10 == 0) std::cout << std::endl << "【" << i << "】";
-        //     std::cout << row_ptr[i] << " ";
-        // }
-        // std::cout << std::endl;
-
-        // printf("sorted_row_indices:\n");
-        // for(int i=0;i<50;i++)
-        //     std::cout << sorted_row_indices[i] << " ";
-        // std::cout<<std::endl<<std::endl;
-
-
-        // printf("row_ptr:\n");
-        // for(int i=0;i<50;i++)
-        //     std::cout << row_ptr[i] << " ";
-        // std::cout<<std::endl<<std::endl;
-
-        
-        // printf("sorted_col_indices:\n");
-        // for(int i=0;i<50;i++)
-        //     std::cout << col_indices[i] << " ";
-        // std::cout<<std::endl<<std::endl;
-
+        if(rowptr_file != "")
+        saveRowptrToFile(rowptr_file, row_ptr, col_indices);
 
         return 0;
     } else {
@@ -587,52 +621,53 @@ void saveToFile(const std::string& filename, float* out_feat, int m, int h, int 
     std::cout << "Data saved to '" << filename << "' successfully!" << std::endl;
 }
 
-void compareResults(const std::string& file1, const std::string& file2, int& numDif, int& difPos) {
+void compareResults(const std::string& file1, const std::string& file2, int h, int f) {
+    std::cout << "file1: " << file1 << std::endl;
+    std::cout << "file2: " << file2 << std::endl;
+    std::ifstream stream1(file1);
+    std::ifstream stream2(file2);
 
-    numDif = 0;
-
-    std::ifstream infile1(file1);
-    std::ifstream infile2(file2);
-
-    if (!infile1.is_open() ) {
-        std::cerr << "Error opening file_test: " << file1 << std::endl;
-        return ;
-    }
-    if (!infile2.is_open() ) {
-        std::cerr << "Error opening file_dgnn: " << file2 << std::endl;
-        return ;
+    if (!stream1.is_open() || !stream2.is_open()) {
+        std::cerr << "Error opening files." << std::endl;
+        return;
     }
 
-    std::vector<float> data1, data2;
-    float num;
+    std::string line1, line2;
+    int lineCount = 0;
+    int misNum = 0;
 
-    while (infile1 >> num) {
-        data1.push_back(num);
-    }
+    while (getline(stream1, line1) && getline(stream2, line2)) {
+        // if(misNum > 5 ) break;
+        std::istringstream iss1(line1);
+        std::istringstream iss2(line2);
 
-    while (infile2 >> num) {
-        data2.push_back(num);
-    }
+        bool lineMismatch = false;
+        float num1, num2;
 
-    infile1.close();
-    infile2.close();
+        for (int i = 0; i < h * f; ++i) {
+            if (!(iss1 >> num1) || !(iss2 >> num2)) {
+                std::cerr << "Error reading numbers." << std::endl;
+                return;
+            }
 
-    if (data1.size() != data2.size()) {
-        return ; 
-    }
-
-    for (int i = 0; i < data1.size(); ++i) {
-        // if (std::abs(data1[i] - data2[i]) > std::numeric_limits<float>::epsilon()) {
-        if (std::abs(data1[i] - data2[i]) > 1e-4) {
-            if(numDif == 0) difPos = i;
-            if(numDif<20&&numDif%4==0) printf("pos=%d:    data1(%s)=%f   data2(%s)=%f \n", 
-            i, file1.c_str(), data1[i], file2.c_str(), data2[i]);
-            numDif++;
+            if (num1 - num2 > 1e-4) {
+                lineMismatch = true;
+                break;
+            }
         }
+
+        if (lineMismatch) {
+            misNum++;
+            if(misNum <= 5) std::cout << "rid " << lineCount  << ": " << num1 << "  " << num2 << std::endl;
+        }
+
+        ++lineCount;
     }
 
-    return ; 
+    if(misNum==0) std::cout << "same!\n";
+    else std::cout << "misNum=" << misNum << std::endl;
 }
+
 
 void computeResultCPU(const std::string& attn_row_file, const std::string& attn_col_file, 
     const std::string& in_feat_file, const std::string& csr_file, const std::string& out_feat_file,
@@ -650,23 +685,76 @@ void computeResultCPU(const std::string& attn_row_file, const std::string& attn_
     int size = m * h * f;
     float* out_feat = new float[size];
 
-    for(int hid = 0; hid < h; ++hid){
-        for(int rid = 0; rid < row_ptr.size()-1; ++rid){
+    if(testRid==-2){
+        for(int hid = 0; hid < h; ++hid){
+            for(int rid = 0; rid < row_ptr.size()-1; ++rid){
 
+                float expAll = 0, weightMax = -1e38;
+                float attn_row_val = attn_row[rid * h + hid];
+                if(rid==testRid) {printf("testRid=%d, 查看过程中间各结果\n",testRid );}
+                if(rid==testRid) printf("attn_row_val=%f\n", attn_row_val);
+
+                for(int i = row_ptr[rid]; i < row_ptr[rid+1]; ++i){
+                    int cid = col_ind[i];
+                    float w = attn_row_val + attn_col[cid * h + hid];
+                    if(rid==testRid) printf("attn_col_val[%d]=%f\n", cid, attn_col[cid * h + hid]);
+                    w = LeakyRelu(w, negative_slope);
+                    
+                    weightMax = std::max(w, weightMax);
+                }
+                if(rid==testRid) printf("weightMax=%f\n", weightMax);
+
+                for(int i = row_ptr[rid]; i < row_ptr[rid+1]; ++i){
+                    int cid = col_ind[i];
+                    float w = LeakyRelu(attn_row_val + attn_col[cid * h + hid], negative_slope);
+                    
+                    float exp = std::exp(w - weightMax);
+                    // if(rid==testRid) printf("cid=%d:  w=%f  weightMax=%f  exp=%f\n", cid, w, weightMax[hid], exp);
+                    expAll += exp;
+                }
+                if(rid==testRid) printf("expAll=%f\n", expAll);
+
+                for(int fid = 0; fid < f; ++fid){
+                    float acc = 0;
+                    for(int i = row_ptr[rid]; i < row_ptr[rid+1]; ++i){
+                        int cid = col_ind[i];
+                        float w = attn_row_val + attn_col[cid * h + hid];
+                        w = LeakyRelu(w, negative_slope);
+                        
+                        w = std::exp(w - weightMax)/expAll;
+                        w = w / (1 - attn_drop);
+
+                        // if(mask>attn_drop)
+                        acc += w * in_feat[cid * h * f + hid * f + fid];
+                        out_feat[rid * h * f + hid * f + fid] = acc;
+                        if(rid==testRid) printf("cid=%d fid=%d【acc+=w*in_feat】[%f=%f*%f] \n", cid, fid, acc, w, in_feat[cid * h * f + hid * f + fid]);
+                    }
+                    if(rid==testRid) printf("\n");
+                }
+
+            }
+        }
+        saveToFile(out_feat_file, out_feat, m, h, f);        
+    }
+    else{
+        for(int hid = 0; hid < h; ++hid){
+        // for(int rid = 0; rid < row_ptr.size()-1; ++rid){
+            int rid = testRid;
             float expAll = 0, weightMax = -1e38;
             float attn_row_val = attn_row[rid * h + hid];
-            if(rid==testRid) {printf("testRid=%d, 查看过程中间各结果\n",testRid );}
-            if(rid==testRid) printf("attn_row_val=%f\n", attn_row_val);
+            if(rid==testRid) {printf("查看过程中间各结果\n");}
+            if(rid==testRid) printf("testRid=%d, attn_row_val=%f\n", rid, attn_row_val);
 
             for(int i = row_ptr[rid]; i < row_ptr[rid+1]; ++i){
                 int cid = col_ind[i];
                 float w = attn_row_val + attn_col[cid * h + hid];
-                if(rid==testRid) printf("attn_col_val[%d]=%f\n", cid,  attn_col[cid * h + hid]);
+                if(rid==testRid) printf("attn_col_val[%d]=%f ", cid,  attn_col[cid * h + hid]);
                 w = LeakyRelu(w, negative_slope);
-                
+
                 weightMax = std::max(w, weightMax);
             }
-            if(rid==testRid) printf("weightMax=%f\n", weightMax);
+
+            if(rid==testRid) printf("\n\nweightMax=%f\n", weightMax);
 
             for(int i = row_ptr[rid]; i < row_ptr[rid+1]; ++i){
                 int cid = col_ind[i];
@@ -676,9 +764,10 @@ void computeResultCPU(const std::string& attn_row_file, const std::string& attn_
                 // if(rid==testRid) printf("cid=%d:  w=%f  weightMax=%f  exp=%f\n", cid, w, weightMax[hid], exp);
                 expAll += exp;
             }
-            if(rid==testRid) printf("expAll=%f\n", expAll);
+            if(rid==testRid) printf("expAll=%f\n\n", expAll);
 
             for(int fid = 0; fid < f; ++fid){
+                if(rid==testRid) printf("fid=%d\n", fid);
                 float acc = 0;
                 for(int i = row_ptr[rid]; i < row_ptr[rid+1]; ++i){
                     int cid = col_ind[i];
@@ -686,27 +775,32 @@ void computeResultCPU(const std::string& attn_row_file, const std::string& attn_
                     w = LeakyRelu(w, negative_slope);
                     
                     w = std::exp(w - weightMax)/expAll;
-                    w = w / (1 - attn_drop);
+                    // w = w / (1 - attn_drop);
 
                     // if(mask>attn_drop)
-                    acc += w * in_feat[cid * h * f + hid * f + fid];
+                    float tmp_feat = w * in_feat[cid * h * f + hid * f + fid];
+                    acc += tmp_feat;
                     out_feat[rid * h * f + hid * f + fid] = acc;
-                    if(rid==testRid&&fid==0) printf("cid=%d【acc+=w*in_feat】[%f=%f*%f] \n\n",cid, acc, w, in_feat[cid * h * f + hid * f + fid]);
+                    if(rid==testRid) printf("cid=%d  tmpf=w*in_feat [%f=%f*%f]\n", cid, tmp_feat, w, in_feat[cid * h * f + hid * f + fid]);
                 }
+                if(rid==testRid) printf("out_feat=%f\n\n", acc);
             }
 
+        // }
         }
     }
-    saveToFile(out_feat_file, out_feat, m, h, f);
+
 
     delete[] out_feat;
 
 }
 
+//   ./test 2>&1 | tee output_cpu.log
 
 // int main()
 // {
 //     // nvcc -o test utils.cpp
+//     // ./test 2>&1 | tee output_cpu.log
 //     std::string file = "m352w_nnz1919w";
 //     int h = 1;
 //     int f = 4;
@@ -719,26 +813,26 @@ void computeResultCPU(const std::string& attn_row_file, const std::string& attn_
 //     readCSR(csr_file, m, mtxMode);
 //     std::printf("csr_file=%s  m=%d  mtxMode=%s  \n", csr_file.c_str(), m, mtxMode.c_str());
 
-//     bool newFeatMtx = false;
-//     if(newFeatMtx){
-//         std::string tail = std::to_string(m)+"_h"+std::to_string(h);
+//     // bool newFeatMtx = false;
+//     // if(newFeatMtx){
+//     //     std::string tail = std::to_string(m)+"_h"+std::to_string(h);
 
-//         std::string  attnrow_path = base + "attn_row_m"+ tail +".txt";
-//         const char* file_attn_row = attnrow_path.c_str();
-//         generateDenseMtx(m, h, 1, file_attn_row);
+//     //     std::string  attnrow_path = base + "attn_row_m"+ tail +".txt";
+//     //     const char* file_attn_row = attnrow_path.c_str();
+//     //     generateDenseMtx(m, h, 1, file_attn_row);
 
-//         std::string  attncol_path = base + "attn_col_m"+ tail +".txt";
-//         const char* file_attn_col = attncol_path.c_str();
-//         generateDenseMtx(m, h, 1, file_attn_col);
+//     //     std::string  attncol_path = base + "attn_col_m"+ tail +".txt";
+//     //     const char* file_attn_col = attncol_path.c_str();
+//     //     generateDenseMtx(m, h, 1, file_attn_col);
 
-//         std::string  infeat_path = base + "in_feat_m"+ tail +"_f"+std::to_string(f)+".txt";
-//         const char* file_in_feat = infeat_path.c_str();
-//         generateDenseMtx(m, h, f, file_in_feat);   
+//     //     std::string  infeat_path = base + "in_feat_m"+ tail +"_f"+std::to_string(f)+".txt";
+//     //     const char* file_in_feat = infeat_path.c_str();
+//     //     generateDenseMtx(m, h, f, file_in_feat);   
 
-//         // std::cout << "attn_row_file: " << attnrow_path << std::endl;  
-//         // std::cout << "attn_col_file: " << attncol_path << std::endl;  
-//         // std::cout << "in_feat_file: " << infeat_path << std::endl;  
-//     }
+//     //     // std::cout << "attn_row_file: " << attnrow_path << std::endl;  
+//     //     // std::cout << "attn_col_file: " << attncol_path << std::endl;  
+//     //     // std::cout << "in_feat_file: " << infeat_path << std::endl;  
+//     // }
 
 //     bool computeResCPU = true;
 //     if(computeResCPU){
@@ -760,56 +854,12 @@ void computeResultCPU(const std::string& attn_row_file, const std::string& attn_
 //         std::string file2 = base + "result_dgnn_h"+ std::to_string(h) + "_f" + std::to_string(f) +".txt";
 //         std::string file3 = base + "result_CPU_h"+ std::to_string(h) + "_f" + std::to_string(f) +".txt";
 
-//         int numDif = 0, difPos=0;
 //         // file1 放test， file2放dgnn
-//         compareResults(file1, file3, numDif, difPos);
-//         if ( numDif== 0) {
-//             std::cout << "\ntest res == CPU res" << std::endl;
-//         } else {
-//             std::cout << "【test&CPU】num of diffrent rows["<<difPos<<"] = " << numDif << std::endl;
-//         }
-
-//         compareResults(file2, file3, numDif, difPos);
-//         if ( numDif== 0) {
-//             std::cout << "dgnn res == CPU res" << std::endl;
-//         } else {
-//             std::cout << "【dgnn&CPU】num of diffrent rows["<<difPos<<"] = " << numDif << std::endl;
-//         }
-
-//         compareResults(file1, file2, numDif, difPos);
-//         if ( numDif== 0) {
-//             std::cout << "test res == dgnn res" << std::endl;
-//         } else {
-//             std::cout << "【test&dgnn】num of diffrent rows["<<difPos+1<<"] = " << numDif << std::endl;
-//         }
+//         printf("compare test&CPU:\n");
+//         compareResults(file1, file3, h, f);
+//         printf("\ncompare dgnn&CPU:\n");
+//         compareResults(file2, file3, h, f);
 //     }
-
-
-//     // bool rowLimitsCPU = false;
-//     // if(rowLimitsCPU){
-//     //     int nblocks = 10; 
-//     //     int NNZ_PER_BLOCK = 5; 
-//     //     // int m = 39;
-//     //     int nnz = 131;
-//     //     int* row_limits = (int*)malloc(sizeof(int)*(nblocks+1));
-
-//     //     // std::string file = "m39_nnz131";
-//     //     // std::string base = "./matrix/" + file;
-//     //     std::string mtxMode = "real";
-//     //     std::vector<int> row_ptr_host, col_ind_host;
-//     //     std::string csr_file = base + "csr_" + file + ".mtx";
-//     //     if (readCSR(csr_file, m, nnz, row_ptr_host, col_ind_host, mtxMode) == 0) {
-//     //         std::cerr << "Read CSR matrix success." << std::endl;
-//     //     } else {
-//     //         std::cerr << "Failed to read the matrix from csr_file." << std::endl;
-//     //     }
-
-//     //     computeRowlimitsCPU(nblocks, NNZ_PER_BLOCK, m, row_ptr_host, row_limits);
-
-//     //     printf("row_limits:\n");
-//     //     for(int i=0; i<nblocks+1; i++) printf("%d ", row_limits[i]);
-//     //     printf("\n");
-//     // }
 
 //    return 0;
 // }

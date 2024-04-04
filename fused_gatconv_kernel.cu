@@ -105,6 +105,7 @@ __global__ void fused_forward_kernel(int m, int nnz, int h, int f,
       }
       // if(blockIdx.x==2) printf("tid=%d  weight=%f\n", threadIdx.x, weight );
       attn_val_sh[threadIdx.x] = weight / (1.0 - attn_drop); 
+      // attn_val_sh[threadIdx.x] = weight; 
       cid_sh[threadIdx.x] = cid;
       __syncwarp();
       int jj = lb + (j << 5); 

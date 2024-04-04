@@ -10,6 +10,7 @@
 
 #include "fused_gatconv_kernel.cu"
 #include "fused_gatconv_kernel_test.cu"
+// #include "fused_gatconv_kernel_test_debug.cu"
 
 #include "utils.cpp"
 
@@ -28,8 +29,8 @@ int main() {
     int overload_threshold = 1024; // 一个block最多处理多少非零元
     int max_nnzPerRow = 0;
 
-    std::string file = "m52w_nnz157w";
-    std::string program = "test"; //test dgnn
+    std::string file = "m352w_nnz1919w";
+    std::string program = "dgnn"; //test dgnn
     if(program=="test")printf("run test\n");
     else if(program=="dgnn") printf("run dgNN\n");
     std::string mtxMode;
@@ -82,21 +83,17 @@ int main() {
     cudaMalloc(&edge_mask, sizeof(float) * nnz * h);
     cudaMalloc(&out_feat, sizeof(float) * m * h * f);
 
-    cudaMemcpy(attn_row, attn_row_host.data(), attn_row_host.size() * sizeof(int), cudaMemcpyHostToDevice);
-    cudaMemcpy(attn_col, attn_col_host.data(), attn_col_host.size() * sizeof(int), cudaMemcpyHostToDevice);
-    cudaMemcpy(in_feat, in_feat_host.data(), in_feat_host.size() * sizeof(int), cudaMemcpyHostToDevice);
+    cudaMemcpy(attn_row, attn_row_host.data(), attn_row_host.size() * sizeof(float), cudaMemcpyHostToDevice);
+    cudaMemcpy(attn_col, attn_col_host.data(), attn_col_host.size() * sizeof(float), cudaMemcpyHostToDevice);
+    cudaMemcpy(in_feat, in_feat_host.data(), in_feat_host.size() * sizeof(float), cudaMemcpyHostToDevice);
     cudaMemcpy(edge_mask, edge_mask_host, sizeof(float) * nnz * h, cudaMemcpyHostToDevice);
     if(DEBUG_MODE>=1) printf("【0】 after copy attns and in_feat\n");
-
+    
     int *row_ptr, *col_ind, *row_limits;
     cudaMalloc(&row_ptr, row_ptr_host.size() * sizeof(int));
 
     cudaMalloc(&col_ind, sizeof(int) * nnz);
     cudaMemcpy(row_ptr, row_ptr_host.data(), row_ptr_host.size() * sizeof(int), cudaMemcpyHostToDevice);
-    // cudaError_t err = cudaMemcpy(row_ptr, row_ptr_host.data(), row_ptr_host.size() * sizeof(int), cudaMemcpyHostToDevice);
-    // if (err != cudaSuccess) {
-    //     std::cerr << "CUDA error copying to device: " << cudaGetErrorString(err) << std::endl;
-    // }
     cudaMemcpy(col_ind, col_ind_host.data(), col_ind_host.size() * sizeof(int), cudaMemcpyHostToDevice);
 
     if(DEBUG_MODE>=1)  printf("【0】 after copy row_ptr and col_ind\n");
@@ -140,17 +137,26 @@ int main() {
     cudaEventCreate(&start);
     cudaEventCreate(&stop);
 
+    // int debug_nblocks = 20000; // 调试信息的block数量
+    // const int strLength = 1000; // 每个线程可用字符数量
+    // const int strDataSize = debug_nblocks * nthreads * strLength; // block数 * thread数 * 每个线程用的长度
+    // char *deviceStrData, *hostStrData;
+    // cudaMalloc(&deviceStrData, strDataSize * sizeof(char));
+    // hostStrData = new char[strDataSize];
+    // memset(hostStrData, 0, strDataSize * sizeof(char));
+
     cudaEventRecord(start);
     
     if(program=="test"){
         dim3 blocks(nblocks, h);
         dim3 threads(nthreads);
-        // 总共使用了共享内存存 nthreas + 2 * m_per_block 个数
-        fused_forward_kernel_test<<<blocks, threads, nthreads * (sizeof(int)) + m_per_block * 2 * sizeof(float)>>>(
+        fused_forward_kernel_test<<<blocks, threads, nthreads * (sizeof(int)) + nthreads * sizeof(float)>>>(
             m, nnz, h, f, attn_drop, attn_row, attn_col, row_ptr, col_ind,
             in_feat, negative_slope, edge_max, edge_sum, edge_mask, out_feat, seed,
             row_limits, nlimits, nthreads, m_per_block
+            // , deviceStrData, strLength, debug_nblocks
         );        
+        // cudaMemcpy(hostStrData, deviceStrData, strDataSize * sizeof(char), cudaMemcpyDeviceToHost);
     }
     // dgnn
     else {
@@ -165,6 +171,21 @@ int main() {
     cudaEventRecord(stop);
     cudaEventSynchronize(stop);
     if(DEBUG_MODE>=1)  printf("【0】 out of fused_forward_kernel_test()\n");
+
+   // 写入debug数据到文件
+    // std::ofstream debugfile("output_test_debug.txt");
+    // debugfile << "debug file\n\n";
+    // for (int i = 0; i < debug_nblocks; i++) {
+    //     for(int j = 0; j < nthreads; j++){
+    //         if(strlen(&hostStrData[i * nthreads * strLength + j * strLength]) != 0){
+    //             debugfile << "--------【block=" << i << " thread=" << j <<"】--------" << std::endl;
+    //             debugfile << &hostStrData[i * nthreads * strLength + j * strLength] << std::endl;
+    //         }
+    //     }    
+    // }
+    // debugfile.close();
+    // cudaFree(deviceStrData);
+    // delete[] hostStrData;
 
 
     float milliseconds = 0;
